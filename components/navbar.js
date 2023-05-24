@@ -1,8 +1,10 @@
 "use client"
 import React, { useState } from 'react'
+import Link from 'next/link'
 
 const navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const [categorys, setCategorys] = useState('general')
 
   const category = [
     'general',
@@ -18,7 +20,7 @@ const navbar = () => {
     //navbar USING TAILWIND
     <nav className="flex items-center justify-between flex-wrap bg-black p-4">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
-        <span className="font-semibold text-xl tracking-tight">News World</span>
+        <Link href='/'>  <span className="font-semibold text-xl tracking-tight">News World</span></Link>
       </div>
       <div className="block lg:hidden">
         <button className="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white transition duration-500 ease-in-out"
@@ -38,16 +40,20 @@ const navbar = () => {
         <div className="text-sm lg:flex-grow"></div>
         <div>
           {
-            category.map((item, index) => {
+            category?.map((item, index) => {
               return (
-                <a
-                  href="#responsive-header"
+                <Link
+                  href={ `/${item}` }
+                  // href="#responsive-header"
                   className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 font-bold"
                   key={ index }
-                  onClick={ () => setIsOpen(!isOpen) }
+                  onClick={ () => {
+                    setIsOpen(!isOpen);
+                    setCategorys(item)
+                  } }
                 >
                   { item }
-                </a>
+                </Link>
               )
             }
             )
